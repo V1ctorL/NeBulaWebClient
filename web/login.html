@@ -150,8 +150,8 @@
                                     <div class="login-form-container">
                                         <div class="login-register-form">
                                             <form id="loginform">
-						<input type="text" name="username" id="username" placeholder="Username" />
-                                                <input type="password" name="password" id="password" placeholder="Password" />
+						<input type="text" name="username" id="usernameL" placeholder="Username" />
+                                                <input type="password" name="password" id="passwordL" placeholder="Password" />
                                                 <div class="button-box">
                                                 <button id="login"><span>Login</span></button></div>  
 					    </form>
@@ -164,14 +164,20 @@
                                     <div class="login-form-container">
                                         <div class="login-register-form">
 <!--                                        <form action="http://192.168.137.1:8080/NeBula/register" method="post">-->
-                                            <form action="http://localhost:8080/NeBula/register" method="post">
+                                            <form id="registerform">
+						<input type="text" name="username" id="usernameR" placeholder="Username" />
+                                                <input type="password" name="password" id="passwordR" placeholder="Password" />
+                                                <div class="button-box">
+                                                <button id="register"><span>register</span></button></div>  
+					    </form>
+<!--                                            <form action="http://localhost:8080/NeBula/register" method="post">
                                                 <input type="text" name="username"  placeholder="Username" />
                                                 <input type="password" name="password"  placeholder="Password" />
-<!--                                                <input name="user-email" placeholder="Email" type="email" />-->
+                                                <input name="user-email" placeholder="Email" type="email" />
                                                 <div class="button-box">
                                                     <button type="submit"><span>Register</span></button>
                                                 </div>
-                                            </form>
+                                            </form>-->
                                         </div>
                                     </div>
                                 </div>
@@ -192,8 +198,8 @@
         $(function(){ 
             $("#login").click(function(){
 //                var data = $("#loginform").serialize(); //序列化
-                var username=$("#username").val();
-                var password=$("#password").val();
+                var username=$("#usernameL").val();
+                var password=$("#passwordL").val();
 //                alert("name:"+username+"psd:"+password); 
                 console.log("username",username);
                 console.log("password",password);
@@ -252,7 +258,70 @@
                       
                     });//ajax
                  return false; //加上才能实现页面跳转 window.location.href
-                 });//click
+                 });//end of login
+                 
+            $("#register").click(function(){
+//                var data = $("#loginform").serialize(); //序列化
+                var username=$("#usernameR").val();
+                var password=$("#passwordR").val();
+                console.log("username",username);
+                console.log("password",password);
+                
+                $.ajax({
+                      type: 'POST',
+                      url: "http://localhost:8080/NeBula/register",
+//                      data:data, //序列化data
+                      data:{"username":username,"password":password},
+//                      dataType: "jsonp",
+//                      dataType: "text",
+                      async: false,
+//                      crossDomain: true,
+
+                      success:function(response){
+                        var str1 = "User has logged in.\n";
+                        var str2 = "denied\n";
+//                        test ajax
+                        console.log("success register (register)");
+//                        test content
+                        console.log("response content:",JSON.stringify(response));
+                        console.log("str1 content:",JSON.stringify(str1));
+                        console.log("str2 content:",JSON.stringify(str2));
+//                        test type
+                        console.log("typeof(response):",typeof(response),"typeof(str1):",typeof(str1));
+                        console.log("typeof(response):",typeof(response),"typeof(str2):",typeof(str2));
+//                        test length
+                        console.log("response.length:",response.length,"str1.length:",str1.length);
+                        console.log("response.length:",response.length,"str2.length:",str2.length);
+//                        test if condition
+                        console.log("response === str1:",response === str1);
+                        console.log("response === str2:",response === str2);
+//                        register approved
+                        if (response === str1){ 
+                            alert("Welcome to NeBula!");
+                            console.log("Welcome to NeBula!");
+                            window.location.href = "http://localhost:8080/NeBulaWebClient/index.html";
+//                            window.event.returnValue=false; //invalid
+                        }
+//                        register denied
+                        if (response === str2) {
+                            alert("Username or password is incorrect. Please try again!");
+                            console.log("Username or password is incorrect. Please try again!");
+                            window.location.href = "http://localhost:8080/NeBulaWebClient/login.html";
+                        }
+                       
+                        console.log("end of success ajax");     
+                      },//success
+                      
+                     error:function(response){
+                        alert("fail ajax (register)");
+                        console.log("fail ajax",response);
+                        console.log("response content:",JSON.stringify(response));
+                        console.log("end of fail ajax");     
+                      }//error
+                      
+                    });//ajax
+                 return false; //加上才能实现页面跳转 window.location.href
+                 });//end of register
         });//start
     </script>
 
