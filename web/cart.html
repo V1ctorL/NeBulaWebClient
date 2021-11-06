@@ -148,6 +148,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <!--one product mode-->
                                         <tr>
                                             <td class="product-thumbnail">
                                                 <a href="#"><img class="img-responsive ml-15px" src="assets/images/product-image/1.webp" alt="" /></a>
@@ -159,12 +160,12 @@
                                                     <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                                                 </div>
                                             </td>
-<!--                                            <td class="product-subtotal">$70.00</td>-->
                                             <td class="product-remove">
                                                 
                                                 <a href="#"><i class="fa fa-times"></i></a>
                                             </td>
                                         </tr>
+                                        
                                         <tr>
                                             <td class="product-thumbnail">
                                                 <a href="#"><img class="img-responsive ml-15px" src="assets/images/product-image/2.webp" alt="" /></a>
@@ -227,13 +228,141 @@
         <!-- Cart Area End -->
  
     </div>
-    <!-- Minify Version -->
-    <script src="assets/js/vendor.min.js"></script>
-    <script src="assets/js/plugins.min.js"></script>
-    <script src="assets/js/main.min.js"></script>
+    
+    <script src=" assets/js/jQuery.mini.js"></script>
+    <script src=" assets/js/vendor.min.js"></script>
+    <script src=" assets/js/plugins.min.js"></script>
+    <script src=" assets/js/main.min.js"></script>
+    <script>
+        
+    $(function(){ 
+//            $("#login").click(function(){
 
-    <!--Main JS (Common Activation Codes)-->
-    <!-- <script src="assets/js/main.js"></script> -->
+                $.ajax({
+                      type: 'GET',
+                      url: "http://localhost:8080/NeBula/cart",
+//                      data:data, //序列化data
+//                      data:{"username":username,"password":password},
+                      dataType: "json",
+//                      dataType: "text",
+                      async: false,
+//                      crossDomain: true,
+
+                      success:function(response){
+                        var cart = response;
+                        var cartProductID = new Array();
+                        var amount = new Array();
+                        console.log("success ajax1");
+                        console.log("response",response);
+                        console.log("cart",cart);
+                        console.log("typeof(response):",typeof(response));
+                        //提取cart里面的product对象
+                        for(var i=0; i<cart.length; i++){
+                            console.log(cart[i]);
+                        }
+                        //提取product的amount
+                        for(var i=0; i<cart.length; i++){
+                            //cart product ID
+                            console.log("cart[i].productID",cart[i].productID);
+                            cartProductID[i] = cart[i].productID;
+                            console.log("cartProductID[i]:",cartProductID[i]);  
+                            //cart product amount
+                            console.log("cart[i].amount",cart[i].amount);
+                            amount[i] = cart[i].amount;
+                            console.log("amount[i]:",amount[i]);  
+                        }
+                        
+                        //获取cart内product的name price（根据productID判断）
+                        $.ajax({
+                                type: 'GET',
+                                url: "http://localhost:8080/NeBula/product",
+                                dataType: "json",
+                                async: false,
+                                success:function(response){
+                                  var product = response;
+                                  var name = new Array();
+                                  var price = new Array();
+                                  var productID = new Array();
+          //                        test ajax
+                                  console.log("success ajax2");
+                                  console.log(response);
+                                  console.log("typeof(response):",typeof(response));
+          //                        console.log("response content:",JSON.stringify(response)); //把json转换为string
+                                  console.log("data.length:",product.length);
+
+                                  //获取、所有的里面product
+                                  for(var i=0; i<product.length; i++){
+                                      console.log(product[i]);
+                                  }
+                                  
+                                  //获取product的id
+                                  for(var i=0; i<product.length; i++){
+//                                      console.log("product[i].id",product[i].id);
+                                      productID[i] = product[i].id;
+//                                      console.log("productID[i]:",productID[i]);
+                                  }
+                                  
+                                   console.log("获取里面product的属性值:");
+                                  //获取里面product的属性值
+                                  for(var i=0; i<product.length; i++){
+                                      //id
+//                                      console.log("product[i].id",product[i].id);
+//                                      productID[i] = product[i].id;
+//                                      console.log("productID[i]:",productID[i]);
+                                      //判断product是否在cart内（判断cartProductID和allProductID是否相同）
+                                      for(var j=0; j<cartProductID.length; j++){
+                                         console.log("进来了"); 
+                                        if(cartProductID[j] == productID[i]){
+                                        //name
+                                        console.log("product[i].name:",product[i].name);
+                                        name[i] = product[i].name;
+                                        console.log("name[i]:",name[i]);   
+                                        //price
+                                        console.log("product[i].price:",product[i].price);
+                                        price[i] = product[i].price;
+                                        console.log("price[i]:",price[i]);
+                                      };
+                                      }
+                                      
+                                  }
+
+                                  //将值写入html标签
+//                                  for(var i=0; i<name.length; i++){
+//
+//                                      //product name
+//                                      $(("#"+"name"+(i+1))).text(name[i]);
+//                                      //price
+//                                      $(("#"+"price"+(i+1))).text("$ "+price[i]);
+//                                      //stock
+//                                      $(("#"+"stock"+(i+1))).text(stock[i]);
+//                                  }
+
+                                  console.log("end of success ajax2");     
+                                },//success
+
+                               error:function(response){
+                                  alert("fail ajax");
+                                  console.log("fail ajax",response);
+                                  console.log("end of fail ajax");     
+                                }//error
+                        });// end of ajax2
+
+
+
+                        
+                        console.log("end of success ajax1");     
+                      },//ajax1 success
+                      
+                     error:function(response){
+                        alert("fail ajax");
+                        console.log("fail ajax",response);
+                        console.log("end of fail ajax");     
+                      }//ajax1 error
+                      
+                    });//end of ajax1
+                 return false; //加上才能实现页面跳转 window.location.href
+        });//start
+    </script>
 </body>
 
 </html>
