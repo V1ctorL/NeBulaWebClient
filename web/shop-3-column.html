@@ -176,7 +176,7 @@
                                                              <h5 class="title" id="name1">Modern Smart Phone
                                                             </h5>
                                                             <span class="price">
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price1">$38.50</span>
                                                             </span>
                                                         </div>
                                                         <div class="actions">
@@ -202,7 +202,7 @@
                                                              <h5 class="title" id="name2">Bluetooth Headphone
                                                                 <!--</a>-->
                                                             </h5>
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price2">$38.50</span>
                                                         </div>
                                                         <div class="actions">
                                                             <button title="Add To Cart" class="action add-to-cart" data-bs-toggle="modal" data-bs-target="#exampleModal-Cart"><i class="pe-7s-shopbag"></i></button>                                                   
@@ -225,7 +225,7 @@
                                                              <h5 class="title" id="name3">Smart Music Box
                                                             </h5>
                                                             <span class="price">
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price3">$38.50</span>
                                                             </span>
                                                         </div>
                                                         <div class="actions">
@@ -252,7 +252,7 @@
                                                                 <!--</a>-->
                                                             </h5>
                                                             <span class="price">
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price4">$38.50</span>
                                                             </span>
                                                         </div>
                                                         <div class="actions">
@@ -281,7 +281,7 @@
                                                                 <!--</a>-->
                                                             </h5>
                                                             <span class="price">
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price5">$38.50</span>
                                                             </span>
                                                         </div>
                                                         <div class="actions">
@@ -307,7 +307,7 @@
                                                              <h5 class="title" id="name6">Smart Table Camera
                                                                 <!--</a>-->
                                                             </h5>                                                            
-                                                            <span class="new">$112.50</span>                                                            
+                                                            <span class="new" id="price6">$112.50</span>                                                            
                                                         </div>
                                                         <div class="actions">
                                                             <button title="Add To Cart" class="action add-to-cart" data-bs-toggle="modal" data-bs-target="#exampleModal-Cart"><i
@@ -335,7 +335,7 @@
                                                                 <!--</a>-->
                                                             </h5>
                                                             <span class="price">
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price7">$38.50</span>
                                                             </span>
                                                         </div>
                                                         <div class="actions">
@@ -365,7 +365,7 @@
                                                                 <!--</a>-->
                                                             </h5>
                                                            
-                                                            <span class="new">$238.50</span>
+                                                            <span class="new" id="price8">$238.50</span>
                                                            
                                                         </div>
                                                         <div class="actions">
@@ -392,7 +392,7 @@
                                                                 <!--</a>-->
                                                             </h5>
                                                             <span class="price">
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price9">$38.50</span>
                                                             </span>
                                                         </div>
                                                         <div class="actions">
@@ -419,7 +419,7 @@
                                                                 <!--</a>-->
                                                             </h5>
                                                             <span class="price">
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price10">$38.50</span>
                                                             </span>
                                                         </div>
                                                         <div class="actions">
@@ -444,7 +444,7 @@
                                                              <h5 class="title" id="name11">Modern Smart Phone
                                                                 <!--</a>-->
                                                             </h5>
-                                                            <span class="new">$30.50</span>
+                                                            <span class="new" id="price11">$30.50</span>
                                                         </div>
                                                         <div class="actions">
                                                             <button title="Add To Cart" class="action add-to-cart" data-bs-toggle="modal" data-bs-target="#exampleModal-Cart"><i
@@ -470,7 +470,7 @@
                                                                 <!--</a>-->
                                                             </h5>
                                                             <span class="price">
-                                                            <span class="new">$38.50</span>
+                                                            <span class="new" id="price12">$38.50</span>
                                                             </span>
                                                         </div>
                                                         <div class="actions">
@@ -1090,7 +1090,7 @@
                             //product name
                             $(("#"+"name"+(i+1))).text(name[i]);
                             //price
-//                            $(("#"+"price"+(i+1))).text(price[i]);
+                            $(("#"+"price"+(i+1))).text("$ "+price[i]);
                             //stock
                             $(("#"+"stock"+(i+1))).text(stock[i]);
                             
