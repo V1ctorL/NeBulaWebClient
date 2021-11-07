@@ -278,8 +278,8 @@
 //                      crossDomain: true,
 
                       success:function(response){
-                        var str1 = "User has logged in.\n";
-                        var str2 = "denied\n";
+                        var str1 = "User is successfully registered.\n";
+                        var str2 = "This user name has already been registered, please select another name.\n";
 //                        test ajax
                         console.log("success register (register)");
 //                        test content
@@ -287,8 +287,8 @@
                         console.log("str1 content:",JSON.stringify(str1));
                         console.log("str2 content:",JSON.stringify(str2));
 //                        test type
-                        console.log("typeof(response):",typeof(response),"typeof(str1):",typeof(str1));
-                        console.log("typeof(response):",typeof(response),"typeof(str2):",typeof(str2));
+//                        console.log("typeof(response):",typeof(response),"typeof(str1):",typeof(str1));
+//                        console.log("typeof(response):",typeof(response),"typeof(str2):",typeof(str2));
 //                        test length
                         console.log("response.length:",response.length,"str1.length:",str1.length);
                         console.log("response.length:",response.length,"str2.length:",str2.length);
@@ -304,8 +304,8 @@
                         }
 //                        register denied
                         if (response === str2) {
-                            alert("Username or password is incorrect. Please try again!");
-                            console.log("Username or password is incorrect. Please try again!");
+                            alert("This user name has already been registered, please select another name.");
+                            console.log("This user name has already been registered, please select another name.");
                             window.location.href = "http://localhost:8080/NeBulaWebClient/login.html";
                         }
                        
