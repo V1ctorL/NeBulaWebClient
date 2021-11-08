@@ -141,36 +141,34 @@
                                     <thead>
                                         <tr>
                                             <th>Image</th>
-                                            <th>Product Name</th>
-                                            <th>Until Price</th>
-                                            <th>Qty</th>
+                                            <th>Time</th>
+                                            <th>Total Price</th>
+                                            <th>OderId</th>
 <!--                                            <th>Subtotal</th>-->
-                                            <th>Action</th>
+                                            <th>return</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="cartProduct">
+<!--                                  <tr>
                                             <td class="product-thumbnail">
-                                                <a href="#"><img class="img-responsive ml-15px" src="assets/images/product-image/1.webp" alt="" /></a>
+                                                <a href="#">
+                                                    <img class="img-responsive ml-15px" src="assets/images/product-image/1.webp" alt="" /></a>
                                             </td>
                                             <td class="product-name"><a href="#">Modern Smart Phone</a></td>
                                             <td class="product-price-cart"><span class="amount">$60.00</span></td>
                                             <td class="product-quantity"><span class="amount">1</span>
 											
-<!--
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
-                                                </div>
--->
+
+                                               
+
                                             </td>
-<!--                                            <td class="product-subtotal">$70.00</td>-->
-                                            <td class="product-remove">
-<!--                                                <a href="#"><i class="fa fa-pencil"></i></a>-->
-<!--                                                <a href="contact.html"><i class="fa fa-times"></i></a>-->
-												 <a href="return.html">Return</a>
-												
-                                            </td>
-                                        </tr>
+                                       <td class="product-price-cart"><span class="amount">$60.00</span></td>
+                                            <td class="product-remove"><a href="return.html">Return</a></td>
+                                            
+                                        </tr>-->
+                                        <!--
+
+
                                         <tr>
                                             <td class="product-thumbnail">
                                                 <a href="#"><img class="img-responsive ml-15px" src="assets/images/product-image/2.webp" alt="" /></a>
@@ -178,17 +176,15 @@
                                             <td class="product-name"><a href="#">Bluetooth Headphone</a></td>
                                             <td class="product-price-cart"><span class="amount">$50.00</span></td>
                                             <td class="product-quantity"><span class="amount">1</span>
-<!--
+
                                                 <div class="cart-plus-minus">
                                                     <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                                                 </div>
--->
+
                                             </td>
-<!--                                            <td class="product-subtotal">$80.00</td>-->
+                                            <td class="product-subtotal">$80.00</td>
                                             <td class="product-remove">
-<!--                                                <a href="#"><i class="fa fa-pencil"></i></a>-->
-<!--                                                <a href="#"><i class="fa fa-times"></i></a>-->
-												 <a href="return.html">Return</a>
+                                             <a href="return.html">Return</a>
 
                                             </td>
                                         </tr>
@@ -199,20 +195,20 @@
                                             <td class="product-name"><a href="#">Smart Music Box</a></td>
                                             <td class="product-price-cart"><span class="amount">$70.00</span></td>
                                             <td class="product-quantity"><span class="amount">1</span>
-<!--
+
                                                 <div class="cart-plus-minus">
                                                     <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                                                 </div>
--->
+
                                             </td>
-<!--                                            <td class="product-subtotal">$90.00</td>-->
+                                            <td class="product-subtotal">$90.00</td>
                                             <td class="product-remove">
-<!--                                                <a href="#"><i class="fa fa-pencil"></i></a>-->
-<!--                                                <a href="#"><i class="fa fa-times"></i></a>-->
+                                                <a href="#"><i class="fa fa-pencil"></i></a>
+                                                <a href="#"><i class="fa fa-times"></i></a>
 												 <a href="return.html">Return</a>
 
 											</td>
-                                        </tr>
+                                        </tr>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -241,13 +237,113 @@
 		
     </div>
 
-    <!-- Minify Version -->
-    <script src="assets/js/vendor.min.js"></script>
-    <script src="assets/js/plugins.min.js"></script>
-    <script src="assets/js/main.min.js"></script>
+     <script src=" assets/js/jQuery.mini.js"></script>
+    <script src=" assets/js/vendor.min.js"></script>
+    <script src=" assets/js/plugins.min.js"></script>
+    <script src=" assets/js/main.min.js"></script>
+    <script>
+        
+     
+        
+    $(function(){ 
+//            $("#login").click(function(){
 
-    <!--Main JS (Common Activation Codes)-->
-    <!-- <script src="assets/js/main.js"></script> -->
+                $.ajax({
+                      type: 'GET',
+                      url: "http://localhost:8080/NeBula/order",
+
+                      dataType: "json",
+//                      dataType: "text",
+                      async: false,
+//                      crossDomain: true,
+
+                      success:function(response){
+                        var order = response;
+                        var orderID = new Array();
+                        var totalPrice = new Array();
+                        var orderTime = new Array();
+                        var orderAmount = new Array();
+                        
+                        //生成order表项模板
+                           for(var i=0; i<order.length; i++){
+                            console.log(order[i]);
+                            //创建html表项（创建模板）
+                            $("#cartProduct").append("<tr>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            //imag
+                            $("#cartProduct").append("<td class=\"product-thumbnail\"><img class=\"img-responsive ml-15px\" src=\"assets/images/product-image/1.webp\" alt=\"\" /></td>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+//                          //orderTime
+                            $("#cartProduct").append("<td id=\"orderTime"+i+"\""+" class=\"product-name\">添加下单时间</td>");
+                            //orderID
+                            $("#cartProduct").append("<td id=\"orderID"+i+"\""+" class=\"product-name\">添加orderID</td>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            //totalPrice
+                            $("#cartProduct").append("<td class=\"product-price-cart\"><span id=\"totalPrice"+i+"\""+" class=\"amount\">添加price</span></td>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            //productAmount
+//                            $("#cartProduct").append("<td class=\"product-quantity\"><span id=\"amount"+i+"\""+" class=\"amount\">1</span>");
+//                            console.log("<td class=\"product-quantity\"><div class=\"cart-plus-minus\"><input id=\"amount"+i+"\""+" class=\"cart-plus-minus-box\" type=\"text\" name=\"qtybutton\" value=\"1\" /></div></td>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            
+                            //return
+                            $("#cartProduct").append("<td class=\"product-remove\"><a href=\"return.html\">Return</a></td>");
+                            
+                            $("#cartProduct").append("</tr>");
+//                            $("td.product-quantity").trigger("create"); //重新加载所在标签的样式
+                        }
+                        
+                        //向order表项里面添加数据
+                        for(var i=0; i<order.length; i++){
+                                      //id
+//                                      console.log("product[i].id",product[i].id);
+//                                      productID[i] = product[i].id;
+//                                      console.log("productID[i]:",productID[i]);
+                                      //判断product是否在cart内（判断cartProductID和allProductID是否相同）
+                                     
+                                         console.log("进来了"); 
+                                        
+                                        //orderID
+//                                        console.log("product[i].name:",product[i].name);
+                                        orderID[i] = order[i].id;
+                                        console.log("orderID[i]:",orderID[i]); 
+                                        $("#"+"orderID"+i).text(orderID[i]);
+                                        //放入productName
+//                                        $("#"+"productName"+i).text(name[i]);
+                                        //price
+//                                        console.log("product[i].price:",product[i].price);
+                                        totalPrice[i] = order[i].totalPrice;
+                                        console.log("totalPrice[i]:",totalPrice[i]);
+                                        $("#"+"totalPrice"+i).text("$ "+ totalPrice[i]);
+                                        //放入productPrice
+//                                        $("#"+"productPrice"+i).text(price[i]);
+                                        //amount加载到每个product中                       
+//                                        $("#"+"amount"+i).text(amount[i]);
+                                        //orderTime
+                                        orderTime[i] = order[i].datetime;
+                                        console.log("orderTime[i]:",orderTime[i]);
+                                        $("#"+"orderTime"+i).text(orderTime[i]);
+                                        //amount
+//                                        orderAmount[i] = order[i].amount;
+//                                        console.log("orderAmount[i]:",orderAmount[i]);
+                                        
+                                  }//for
+                           
+                        
+                        console.log(response);
+                        console.log("end of success ajax1");     
+                      },//ajax1 success
+                      
+                     error:function(response){
+                        alert("fail ajax");
+                        console.log("fail ajax",response);
+                        console.log("end of fail ajax");     
+                      }//ajax1 error
+                      
+                    });//end of ajax1
+                 return false; //加上才能实现页面跳转 window.location.href
+        });//start
+    </script>
 </body>
 
 </html>
