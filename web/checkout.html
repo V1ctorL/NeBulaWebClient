@@ -264,11 +264,11 @@
                                         </ul>
                                     </div>
                                     <div class="your-order-middle">
-                                        <ul>
-                                            <li><span class="order-middle-left">Product Name X 1</span> <span
-                                                class="order-price">$100 </span></li>
-                                            <li><span class="order-middle-left">Product Name X 1</span> <span
-                                                class="order-price">$100 </span></li>
+                                        <ul id="checkoutProduct">
+<!--                                            <li><span id="nameAmount" class="order-middle-left">Product Name X amount</span>
+                                                <span id="priceN" class="order-price">$ price </span></li>-->
+<!--                                            <li><span class="order-middle-left">Product Name X 1</span> 
+                                                <span class="order-price">$100 </span></li>-->
                                         </ul>
                                     </div>
                                     <div class="your-order-bottom">
@@ -277,12 +277,13 @@
                                             <li>Free shipping</li>
                                         </ul>
                                     </div>
-                                    <div class="your-order-total">
+                                    <!--total-->
+<!--                                    <div class="your-order-total">
                                         <ul>
                                             <li class="order-total">Total</li>
                                             <li>$100</li>
                                         </ul>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="payment-method">
                                     <div class="payment-accordion element-mrg">
@@ -326,7 +327,7 @@
                                 </div>
                             </div>
                             <div class="Place-order mt-25">
-                                <a class="btn-hover" href="thank-you-page.html">pay now</a>
+                                <a id="payNow" class="btn-hover" href="thank-you-page.html">pay now</a>
                             </div>
                         </div>
                     </div>
@@ -338,13 +339,216 @@
     </div>
  
 
-    <!-- Minify Version -->
-    <script src="assets/js/vendor.min.js"></script>
-    <script src="assets/js/plugins.min.js"></script>
-    <script src="assets/js/main.min.js"></script>
+     <script src=" assets/js/jQuery.mini.js"></script>
+    <script src=" assets/js/vendor.min.js"></script>
+    <script src=" assets/js/plugins.min.js"></script>
+    <script src=" assets/js/main.min.js"></script>
+    <script>
+    $(function(){ 
+//            $("#login").click(function(){
 
-    <!--Main JS (Common Activation Codes)-->
-    <!-- <script src="assets/js/main.js"></script> -->
+                function Order(productID,productAmount,productPrice) {
+                    this.productID = productID;
+                    this.productAmount = productAmount;
+                    this.productPrice = productPrice;
+                };
+                
+                
+
+                $.ajax({
+                      type: 'GET',
+                      url: "http://localhost:8080/NeBula/cart",
+//                      data:data, //序列化data
+//                      data:{"username":username,"password":password},
+                      dataType: "json",
+//                      dataType: "text",
+                      async: false,
+//                      crossDomain: true,
+
+                      success:function(response){
+                        //cart
+                        var cart = response;
+                        //提交给order的objs
+                        var checkout = new Array();
+                        var cartProductID = new Array();
+                        var amount = new Array();
+                        
+                        var name = new Array();
+                        var price = new Array();
+                        var productID = new Array();
+                        
+                        //Try
+                        var data = {
+                            productList:[]
+                        };
+
+                        
+
+//                        console.log("success ajax1");
+//                        console.log("response",response);
+//                        console.log("cart",cart);
+//                        console.log("typeof(response):",typeof(response));
+//                        
+                        //提取cart里面的product对象
+                        for(var i=0; i<cart.length; i++){
+                            console.log(cart[i]);
+                            //动态生成订单项
+                            $(".your-order-middle>ul").append("<li>");
+//                          //name&amount
+                            $(".your-order-middle>ul").append("<span id=\"nameAmount"+i+"\""+" class=\"order-middle-left\">Product Name X amount</span>");
+                            console.log("<span id=\"nameAmount"+i+"\""+" class=\"order-middle-left\">Product Name X amount</span>");
+                            //price
+                            $(".your-order-middle>ul").append("<span id=\"price"+i+"\""+" class=\"order-price\">$ price </span>");
+                            console.log("<span id=\"price"+i+"\""+" class=\"order-price\">$ price </span>");
+                            $(".your-order-middle>ul").append("</li>");
+                            
+//                            $(".your-order-middle>ul").listview("refresh"); 
+                        }
+                        
+                        //提取product的amount/ID
+                        for(var i=0; i<cart.length; i++){
+                            //cart product ID
+//                            console.log("cart[i].productID",cart[i].productID);
+                            cartProductID[i] = cart[i].productID;
+//                            console.log("cartProductID[i]:",cartProductID[i]);  
+                            //cart product amount
+//                            console.log("cart[i].amount",cart[i].amount);
+                            amount[i] = cart[i].amount;
+//                            console.log("amount[i]:",amount[i]); 
+//                            //amount加载到每个product中                       
+//                            $("#"+"amount"+i).text(amount[i]);
+//                            console.log("#"+"amount"+i);
+                        }
+                        
+                        //获取cart内product的name price（根据productID判断）
+                        $.ajax({
+                                type: 'GET',
+                                url: "http://localhost:8080/NeBula/product",
+                                dataType: "json",
+                                async: false,
+                                success:function(response){
+                                  var product = response;
+//                                  var name = new Array();
+//                                  var price = new Array();
+//                                  var productID = new Array();
+//                                  
+          //                        test ajax
+                                  console.log("success ajax2");
+                                  console.log(response);
+//                                  console.log("typeof(response):",typeof(response));
+          //                        console.log("response content:",JSON.stringify(response)); //把json转换为string
+//                                  console.log("data.length:",product.length);
+
+                                  //获取所有的里面product
+                                  for(var i=0; i<product.length; i++){
+                                      console.log(""+product[i]);
+                                  }
+                                  
+                                  //获取product的id
+                                  for(var i=0; i<product.length; i++){
+//                                      console.log("product[i].id",product[i].id);
+                                      productID[i] = product[i].id;
+//                                      console.log("productID[i]:",productID[i]);
+                                  }
+                                  
+                                   console.log("获取里面product的属性值:");
+                                  //获取里面allproduct的属性值
+                                  for(var i=0; i<product.length; i++){
+                                      //id
+//                                      console.log("product[i].id",product[i].id);
+//                                      productID[i] = product[i].id;
+//                                      console.log("productID[i]:",productID[i]);
+                                      //判断product是否在cart内（判断cartProductID和allProductID是否相同）
+                                      for(var j=0; j<cartProductID.length; j++){
+//                                         console.log("进来了"); 
+                                        if(cartProductID[j] == productID[i]){
+                                        //把cart里面要结账的商品obj放入checkout里
+//                                        checkout.push(cart[i]);
+//                                        data.productList.push(cart[i]);
+                                        console.log("checkout objs:",checkout);
+                                        //name
+//                                        console.log("product[i].name:",product[i].name);
+                                        name[i] = product[i].name;
+                                        console.log("name[i]:",name[i]);  
+                                        //放入productName
+                                        $("#"+"nameAmount"+i).text(name[i]+" X "+amount[i]);
+                                        console.log("#"+"nameAmount"+i);
+                                        console.log(name[i]+" X "+amount[i]);
+                                        //price
+//                                        console.log("product[i].price:",product[i].price);
+                                        price[i] = product[i].price;
+                                        console.log("price[i]:",price[i]);
+                                        //放入productPrice
+                                        $("#"+"price"+i).text("$ "+price[i]);
+                                      };
+                                      }//for
+                                  }//for
+                                  
+                                  for(var i=0; i<cart.length; i++){
+                                        var order= new Order(productID[i],amount[i],price[i]);
+                                        data.productList.push(order);
+                                    }
+                                  
+                                  //Try
+//                                  data.productList.push(checkout);
+//                                  console.log("data.productList:",data.productList);
+//                                  data.push(productList);
+//                                  data = {"productList",productList};
+//                                  console.log("data:",data);
+                                  
+                                  
+                                  $("#payNow").click(function(){
+//                                      var data = {
+//                                          productList: [
+//                                              {"productID":"12997278088298496","productAmount":"2","productPrice":"8999"},
+//                                              {"productID":"12997710701395968","productAmount":"2","productPrice":"7999"}
+//                                          ]
+//                                      };
+
+//                                      console.log(data);
+//                                      console.log(data)
+                                      $.ajax({
+                                            type: 'POST',
+                                            url: "http://localhost:8080/NeBula/order/",
+                                            dataType: "json",
+                                            contentType:"application/json",
+                                            data: JSON.stringify(data),
+                                            async: false,
+                                            success:function(response){
+                                                console.log("post sucessfully",response);
+                                            },
+                                            error:function(response){
+                                                console.log(JSON.stringify(data));
+                                                console.log("post fail",response);  
+
+                                            }
+ 
+                                      });//end of ajax3
+                                  });//end of paynow post
+                                  
+                                  console.log("end of success ajax2");     
+                                },//success
+
+                               error:function(response){
+                                  alert("fail ajax");
+                                  console.log("fail ajax",response);
+                                  console.log("end of fail ajax");     
+                                }//error
+                        });// end of ajax2 (加载信息到product)
+                      
+                        console.log("end of success ajax1");     
+                      },//ajax1 success
+                      
+                     error:function(response){
+                        alert("fail ajax");
+                        console.log("fail ajax",response);
+                        console.log("end of fail ajax");     
+                      }//ajax1 error
+                      
+                    });//end of ajax1
+                 return false; //加上才能实现页面跳转 window.location.href
+        });//start
+    </script>
 </body>
 
 </html>
