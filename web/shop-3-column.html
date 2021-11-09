@@ -633,7 +633,7 @@
                                                         <div class="content-desc-wrap">
                                                             <div class="content">
                                                                 <span class="category"><a href="#">Accessories</a></span>
-                                                                 <h5 class="title">Air Pods 25Hjkl Black</a></h5>
+                                                                 <h5 class="title">Air Pods 25Hjkl Black</h5>
                                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                                                                     sed do eiusmodol tempor incididunt ut labore et dolore
                                                                     magna aliqua. Ut enim ad minim veni quis nostrud
@@ -1052,7 +1052,6 @@
 
                       success:function(response){
                         var product = response;
-//                        var toCart = {"userID":13213269267316736,"productID":12997278088298496,"amount":2};
                         var name = new Array();
                         var price = new Array();
                         var stock = new Array();
@@ -1060,10 +1059,7 @@
                         var buttonID;
                         var buttonIDC;
                         var productN;
-                        
-                        
-                         
-                        
+                    
 //                        test ajax
                         console.log("success ajax");
                         console.log(response);
@@ -1099,7 +1095,6 @@
 
                         //将值写入html标签
                         for(var i=0; i<name.length; i++){
-                            
                             //product name
                             $(("#"+"name"+(i+1))).text(name[i]);
                             //price
@@ -1119,7 +1114,7 @@
                             
 
                         //快速加购
-                         $("#addToCart1").click(function(){
+                         $(buttonIDC).click(function(){
                              if(buttonID.substring(0,9)=="addToCart"){
 //                                 alert(productID[productN]);
                                  var toCart = {"productID":productID[productN],"amount":1};
@@ -1142,8 +1137,7 @@
                                          console.log("response:",response);
                                      }
                                  });//end of ajax
-                             }
-    //                                       
+                             }                
                          });//end of click buttonIDC
                     
                         console.log("end of success ajax");     
