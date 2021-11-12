@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="Pong">
-      <implementation-class>team.v1ctorl.nebula.Pong</implementation-class>
+    <service name="Pong1">
+      <implementation-class>team.v1ctorl.nebula.Pong1</implementation-class>
     </service>
   </services>
   <clients/>
