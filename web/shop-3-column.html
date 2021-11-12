@@ -2,13 +2,11 @@
 <html lang="zxx" dir="ltr">
 	
 <head>
+    <meta name="author" content="Kenora"> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shop</title>
-    <meta name="robots" content="index, follow" />
-    <meta name="description" content="Hmart-Smart Product eCommerce html Template">
-    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico" />
   
     <link rel="stylesheet" href="assets/css/plugins.min.css">
@@ -1039,6 +1037,14 @@
     <script>
         $(function(){ 
 //            $("#login").click(function(){
+                
+//                        var name = new Array();
+//                        var price = new Array();
+//                        var stock = new Array();
+//                        var productID = new Array();
+//                        var buttonID;
+//                        var buttonIDC;
+//                        var productN;
 
                 $.ajax({
                       type: 'GET',
@@ -1057,7 +1063,7 @@
                         var stock = new Array();
                         var productID = new Array();
                         var buttonID;
-                        var buttonIDC;
+                        var buttonIDC = new Array();
                         var productN;
                     
 //                        test ajax
@@ -1105,19 +1111,33 @@
                         
                         
                         //查看button的id
-                        $("button").click(function() {
-                           buttonID = $(this).attr("id");
-                           productN = parseInt(buttonID.substring(9,buttonID.length)-1, 10);
-                           buttonIDC = "\""+"#"+buttonID+"\"";
-//                           alert(buttonIDC);
-                        });//end of button click
+//                        $("button").click(function() {
+////                           alert("执行成功1");
+//                           buttonID = $(this).attr("id");
+//                           productN = parseInt(buttonID.substring(9,buttonID.length)-1, 10);
+//                           
+//                           buttonIDC = "\""+"#"+buttonID+"\"";
+//                           
+//                           console.log(buttonIDC);
+//                           
+////                           alert(buttonIDC);
+//                        });//end of button click
                             
-
+                       
+                        
+                        
+//                        console.log(typeof(buttonIDC.toString()));
                         //快速加购
-                         $(buttonIDC).click(function(){
+                           $("button").click(function(){
+//                         $("#addToCart1").click(function(){
+//                             alert("执行成功3");
+                             buttonID = $(this).attr("id");
+                             productN = parseInt(buttonID.substring(9,buttonID.length)-1, 10);
+                             
                              if(buttonID.substring(0,9)=="addToCart"){
 //                                 alert(productID[productN]);
                                  var toCart = {"productID":productID[productN],"amount":1};
+//                                 alert("执行成功2");
                                  $.ajax({
                                      type: 'POST',
                                      url: "http://localhost:8080/NeBula/cart",
@@ -1144,7 +1164,7 @@
                       },//success
                       
                      error:function(response){
-                        alert("fail ajax");
+//                        alert("fail ajax");
                         console.log("fail ajax",response);
                         console.log("end of fail ajax");     
                       }//error

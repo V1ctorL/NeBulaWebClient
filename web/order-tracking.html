@@ -2,13 +2,11 @@
 <html lang="zxx" dir="ltr">
 	
 <head>
+    <meta name="author" content="Kenora"> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>order</title>
-    <meta name="robots" content="index, follow" />
-    <meta name="description" content="Hmart-Smart Product eCommerce html Template">
-    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico" />
   
     <link rel="stylesheet" href="assets/css/plugins.min.css">
@@ -157,10 +155,6 @@
                                             <td class="product-name"><a href="#">Modern Smart Phone</a></td>
                                             <td class="product-price-cart"><span class="amount">$60.00</span></td>
                                             <td class="product-quantity"><span class="amount">1</span>
-											
-
-                                               
-
                                             </td>
                                        <td class="product-price-cart"><span class="amount">$60.00</span></td>
                                             <td class="product-remove"><a href="return.html">Return</a></td>
@@ -248,6 +242,8 @@
     $(function(){ 
 //            $("#login").click(function(){
 
+               
+
                 $.ajax({
                       type: 'GET',
                       url: "http://localhost:8080/NeBula/order",
@@ -262,12 +258,24 @@
                         var orderID = new Array();
                         var totalPrice = new Array();
                         var orderTime = new Array();
-                        var orderAmount = new Array();
+//                        var orderAmount = new Array();
+//                        var orderReturn = new Array();
+                        
+//                        for(var i=0; i<order.length; i++){
+//                        //orderReturn
+//                        orderReturn[i] = order[i].productList[0].isReturned;
+//                        console.log("orderReturn[i]:",orderReturn[i]);
+//                        }
+                        
+                        
                         
                         //生成order表项模板
                            for(var i=0; i<order.length; i++){
-                            console.log(order[i]);
+                            console.log("第i个order",order[i]);
                             //创建html表项（创建模板）
+//                            console.log(orderReturn[i]=="false");
+//                            if(orderReturn[i]){}
+//                            else{
                             $("#cartProduct").append("<tr>");
 //                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
                             //imag
@@ -291,7 +299,23 @@
                             
                             $("#cartProduct").append("</tr>");
 //                            $("td.product-quantity").trigger("create"); //重新加载所在标签的样式
+//                            }//end of else
                         }
+                        
+//                          $(".product-remove").click(function(){
+//                           alert("成功");
+//                           $("a").text("returned");
+//                         $("#addToCart1").click(function(){
+//                             alert("执行成功3");
+//                             buttonID = $(this).attr("id");
+//                             productN = parseInt(buttonID.substring(9,buttonID.length)-1, 10);
+//                             
+//                             if(buttonID.substring(0,9)=="addToCart"){
+////                                 alert(productID[productN]);
+//                                 var toCart = {"productID":productID[productN],"amount":1};
+//                                 alert("执行成功2");
+              
+//                         });//end of click buttonIDC
                         
                         //向order表项里面添加数据
                         for(var i=0; i<order.length; i++){
@@ -327,7 +351,11 @@
 //                                        orderAmount[i] = order[i].amount;
 //                                        console.log("orderAmount[i]:",orderAmount[i]);
                                         
+//                                        $("#"+"orderTime"+i).text(orderTime[i]);
+                                        
                                   }//for
+                                  
+                                  
                            
                         
                         console.log(response);
@@ -335,7 +363,7 @@
                       },//ajax1 success
                       
                      error:function(response){
-                        alert("fail ajax");
+//                        alert("fail ajax");
                         console.log("fail ajax",response);
                         console.log("end of fail ajax");     
                       }//ajax1 error

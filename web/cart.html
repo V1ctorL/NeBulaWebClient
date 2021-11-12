@@ -2,13 +2,11 @@
 <html lang="zxx" dir="ltr">
 	
 <head>
+    <meta name="author" content="Kenora"> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cart</title>
-    <meta name="robots" content="index, follow" />
-    <meta name="description" content="Hmart-Smart Product eCommerce html Template">
-    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico" />
   
     <link rel="stylesheet" href="assets/css/plugins.min.css">
@@ -147,26 +145,25 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <!--one product mode-->
-                                        <tr>
-                                            <td class="product-thumbnail">
-                                                <a href="#"><img class="img-responsive ml-15px" src="assets/images/product-image/1.webp" alt="" /></a>
-                                            </td>
-                                            <td class="product-name"><a href="#">Modern Smart Phone</a></td>
-                                            <td class="product-price-cart"><span class="amount">$60.00</span></td>
-                                            <td class="product-quantity">
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
-                                                </div>
-                                            </td>
-                                            <td class="product-remove">
-                                                
-                                                <a href="#"><i class="fa fa-times"></i></a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr>
+                                    <tbody id="cartProduct">
+<!--                                       
+                                    <tr>
+                                     <td class="product-thumbnail">
+                                         <img class="img-responsive ml-15px" src="assets/images/product-image/1.webp" alt="" />
+                                     </td>
+                                     <td class="product-name">Modern Smart Phone</td>
+                                     <td class="product-price-cart"><span class="amount">$60.00</span></td>
+                                     <td class="product-quantity">
+                                         <div class="cart-plus-minus">
+                                             <input id="amountN" class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                                         </div>
+                                     </td>
+                                     <td class="product-remove">
+                                         <i class="fa fa-times"></i>
+                                     </td>
+                                     </tr>
+                                     -->
+<!--                                        <tr>
                                             <td class="product-thumbnail">
                                                 <a href="#"><img class="img-responsive ml-15px" src="assets/images/product-image/2.webp" alt="" /></a>
                                             </td>
@@ -177,7 +174,7 @@
                                                     <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                                                 </div>
                                             </td>
-<!--                                            <td class="product-subtotal">$80.00</td>-->
+                                            <td class="product-subtotal">$80.00</td>
                                             <td class="product-remove">
                                                  
                                                 <a href="#"><i class="fa fa-times"></i></a>
@@ -194,11 +191,11 @@
                                                     <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                                                 </div>
                                             </td>
-<!--                                            <td class="product-subtotal">$90.00</td>-->
+                                            <td class="product-subtotal">$90.00</td>
                                             <td class="product-remove">
                                                 <a href="#"><i class="fa fa-times"></i></a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -210,7 +207,7 @@
                                         </div>
                                         <div class="cart-clear">
 <!--                                            <button>Update Shopping Cart</button>-->
-                                            <a href="checkout.html">checkout</a>
+                                            <a id="checkout" href="checkout.html">checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -235,6 +232,8 @@
     <script src=" assets/js/main.min.js"></script>
     <script>
         
+     
+        
     $(function(){ 
 //            $("#login").click(function(){
 
@@ -249,9 +248,16 @@
 //                      crossDomain: true,
 
                       success:function(response){
+                        //cart
                         var cart = response;
                         var cartProductID = new Array();
                         var amount = new Array();
+                        
+                        var name = new Array();
+                        var price = new Array();
+                        var productID = new Array();
+                        
+                        
                         console.log("success ajax1");
                         console.log("response",response);
                         console.log("cart",cart);
@@ -259,17 +265,46 @@
                         //提取cart里面的product对象
                         for(var i=0; i<cart.length; i++){
                             console.log(cart[i]);
+                            
+                            
+                            //创建html表项（创建模板）
+                            $("#cartProduct").append("<tr>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            //imag
+                            $("#cartProduct").append("<td class=\"product-thumbnail\"><img class=\"img-responsive ml-15px\" src=\"assets/images/product-image/1.webp\" alt=\"\" /></td>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            //productName
+                            $("#cartProduct").append("<td id=\"productName"+i+"\""+" class=\"product-name\">添加produt name</td>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            //productPrice
+                            $("#cartProduct").append("<td class=\"product-price-cart\"><span id=\"productPrice"+i+"\""+" class=\"amount\">添加price</span></td>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            //productAmount
+                            $("#cartProduct").append("<td id=\"amount"+i+"\""+" class=\"product-name\">添加amount</td>");
+//                            $("#cartProduct").append("<td class=\"product-quantity\"><div class=\"cart-plus-minus\"><input id=\"amount"+i+"\""+" class=\"cart-plus-minus-box\" type=\"text\" name=\"qtybutton\" value=\"1\"/></div></td>");
+//                            console.log("<td class=\"product-quantity\"><div class=\"cart-plus-minus\"><input id=\"amount"+i+"\""+" class=\"cart-plus-minus-box\" type=\"text\" name=\"qtybutton\" value=\"1\" /></div></td>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            //removeProduct(未实现仅为图标)
+                            $("#cartProduct").append("<td class=\"product-remove\"><i class=\"fa fa-times\"></i></td></tr>");
+//                            $("#cartProduct").trigger("create"); //重新加载所在标签的样式
+                            $("#cartProduct").append("</tr>");
+//                            $("td.product-quantity").trigger("create"); //重新加载所在标签的样式
+   
                         }
+                        
                         //提取product的amount
                         for(var i=0; i<cart.length; i++){
                             //cart product ID
-                            console.log("cart[i].productID",cart[i].productID);
+//                            console.log("cart[i].productID",cart[i].productID);
                             cartProductID[i] = cart[i].productID;
                             console.log("cartProductID[i]:",cartProductID[i]);  
                             //cart product amount
-                            console.log("cart[i].amount",cart[i].amount);
+//                            console.log("cart[i].amount",cart[i].amount);
                             amount[i] = cart[i].amount;
-                            console.log("amount[i]:",amount[i]);  
+                            console.log("amount[i]:",amount[i]); 
+//                            //amount加载到每个product中                       
+//                            $("#"+"amount"+i).text(amount[i]);
+//                            console.log("#"+"amount"+i);
                         }
                         
                         //获取cart内product的name price（根据productID判断）
@@ -280,9 +315,9 @@
                                 async: false,
                                 success:function(response){
                                   var product = response;
-                                  var name = new Array();
-                                  var price = new Array();
-                                  var productID = new Array();
+//                                  var name = new Array();
+//                                  var price = new Array();
+//                                  var productID = new Array();
           //                        test ajax
                                   console.log("success ajax2");
                                   console.log(response);
@@ -311,50 +346,44 @@
 //                                      console.log("productID[i]:",productID[i]);
                                       //判断product是否在cart内（判断cartProductID和allProductID是否相同）
                                       for(var j=0; j<cartProductID.length; j++){
-                                         console.log("进来了"); 
+//                                         console.log("进来了"); 
                                         if(cartProductID[j] == productID[i]){
                                         //name
                                         console.log("product[i].name:",product[i].name);
                                         name[i] = product[i].name;
-                                        console.log("name[i]:",name[i]);   
+                                        console.log("name[i]:",name[i]);  
+                                        //放入productName
+                                        $("#"+"productName"+i).text(name[i]);
                                         //price
                                         console.log("product[i].price:",product[i].price);
                                         price[i] = product[i].price;
                                         console.log("price[i]:",price[i]);
+                                        //放入productPrice
+                                        $("#"+"productPrice"+i).text("$ "+price[i]);
+                                        //amount加载到每个product中                       
+                                        $("#"+"amount"+i).text(amount[i]);
+                                        
                                       };
                                       }
-                                      
-                                  }
-
-                                  //将值写入html标签
-//                                  for(var i=0; i<name.length; i++){
-//
-//                                      //product name
-//                                      $(("#"+"name"+(i+1))).text(name[i]);
-//                                      //price
-//                                      $(("#"+"price"+(i+1))).text("$ "+price[i]);
-//                                      //stock
-//                                      $(("#"+"stock"+(i+1))).text(stock[i]);
-//                                  }
-
+                                  }//for
+                                  
+//                                   
+                         
                                   console.log("end of success ajax2");     
                                 },//success
 
                                error:function(response){
-                                  alert("fail ajax");
+//                                  alert("fail ajax");
                                   console.log("fail ajax",response);
                                   console.log("end of fail ajax");     
                                 }//error
-                        });// end of ajax2
-
-
-
-                        
+                        });// end of ajax2 (加载信息到product)
+                    
                         console.log("end of success ajax1");     
                       },//ajax1 success
                       
                      error:function(response){
-                        alert("fail ajax");
+//                        alert("fail ajax");
                         console.log("fail ajax",response);
                         console.log("end of fail ajax");     
                       }//ajax1 error
