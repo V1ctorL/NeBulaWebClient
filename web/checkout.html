@@ -355,7 +355,7 @@
 
                 $.ajax({
                       type: 'GET',
-                      url: "http://localhost:8080/NeBula/cart",
+                      url: "https://172.20.10.6:8181/NeBula/cart",
                       dataType: "json",
 //                      dataType: "text",
                       async: false,
@@ -505,7 +505,7 @@
 //                                      console.log(data)
                                       $.ajax({
                                             type: 'POST',
-                                            url: "http://localhost:8080/NeBula/order/",
+                                            url: "https://172.20.10.6:8181/NeBula/order/",
                                             dataType: "json",
                                             contentType:"application/json",
                                             data: JSON.stringify(data),

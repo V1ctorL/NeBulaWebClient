@@ -239,7 +239,7 @@
 
                 $.ajax({
                       type: 'GET',
-                      url: "http://localhost:8080/NeBula/cart",
+                      url: "https://172.20.10.6:8181/NeBula/cart",
 //                      data:data, //序列化data
 //                      data:{"username":username,"password":password},
                       dataType: "json",
@@ -310,7 +310,7 @@
                         //获取cart内product的name price（根据productID判断）
                         $.ajax({
                                 type: 'GET',
-                                url: "http://localhost:8080/NeBula/product",
+                                url: "https://172.20.10.6:8181/NeBula/product",
                                 dataType: "json",
                                 async: false,
                                 success:function(response){

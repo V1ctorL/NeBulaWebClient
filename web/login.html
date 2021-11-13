@@ -204,7 +204,7 @@
                 
                 $.ajax({
                       type: 'POST',
-                      url: "http://localhost:8080/NeBula/login",
+                      url: "https://172.20.10.6:8181/NeBula/login",
 //                      data:data, //序列化data
                       data:{"username":username,"password":password},
 //                      dataType: "jsonp",
@@ -234,14 +234,14 @@
                         if (response === str1){ 
                             alert("Welcome to NeBula!");
                             console.log("Welcome to NeBula!");
-                            window.location.href = "http://localhost:8080/NeBulaWebClient/index.html";
+                            window.location.href = "https://172.20.10.6:8181/NeBulaWebClient/index.html";
 //                            window.event.returnValue=false; //invalid
                         }
 //                        login denied
                         if (response === str2) {
                             alert("Username or password is incorrect. Please try again!");
                             console.log("Username or password is incorrect. Please try again!");
-                            window.location.href = "http://localhost:8080/NeBulaWebClient/login.html";
+                            window.location.href = "https://172.20.10.6:8181/NeBulaWebClient/login.html";
                         }
                        
                         console.log("end of success ajax");     
@@ -267,7 +267,7 @@
                 
                 $.ajax({
                       type: 'POST',
-                      url: "http://localhost:8080/NeBula/register",
+                      url: "https://172.20.10.6:8181/NeBula/register",
 //                      data:data, //序列化data
                       data:{"username":username,"password":password},
 //                      dataType: "jsonp",
@@ -297,14 +297,14 @@
                         if (response === str1){ 
                             alert("Welcome to NeBula!");
                             console.log("Welcome to NeBula!");
-                            window.location.href = "http://localhost:8080/NeBulaWebClient/index.html";
+                            window.location.href = "https://172.20.10.6:8181/NeBulaWebClient/index.html";
 //                            window.event.returnValue=false; //invalid
                         }
 //                        register denied
                         if (response === str2) {
                             alert("This user name has already been registered, please select another name.");
                             console.log("This user name has already been registered, please select another name.");
-                            window.location.href = "http://localhost:8080/NeBulaWebClient/login.html";
+                            window.location.href = "https://172.20.10.6:8181/NeBulaWebClient/login.html";
                         }
                        
                         console.log("end of success ajax");     
